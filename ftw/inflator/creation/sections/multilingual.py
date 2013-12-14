@@ -9,6 +9,7 @@ from zope.component import getUtility
 from zope.interface import classProvides
 from zope.interface import implements
 import pkg_resources
+import os
 
 
 try:
@@ -59,7 +60,7 @@ class SetupLanguages(object):
             lang_contents = deepcopy(contents)
             self._recursive_set_language(lang_contents, lang_code)
 
-            yield {'_path': lang_code,
+            yield {'_path': os.path.join(lang_code, item.get('_path', '').lstrip('/')),
                    '_children': lang_contents}
 
     def _validate_languages(self, languages):
